@@ -3,11 +3,34 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RacePanel extends JPanel{
+/**
+ * RacePanel class which is a custom JPanel for displaying
+ * the horse race using a user-friendly interface. The track
+ * is drawn out either using the default set of horses or
+ * custom horses selected by the user. During the race, the
+ * horse positions are updated on timer ticks
+ * 
+ * @author Aneeka
+ * @version 1.0 (24th April 2024)
+ */
+public class RacePanel extends JPanel {
     private List<JLabel> horseLabels;
     private List<String> selectedHorses;
-    Color chosenColour;
+    private Color chosenColour;
 
+    /**
+     * Constructor for objects of class RacePanel. The
+     * track is drawn out using the specified number of
+     * tracks and racelength. Custom horses are used
+     * or a default set used if none are provided. The
+     * colour of the track is set using the chosen colour
+     * 
+     * @param tracks number of tracks/lanes
+     * @param raceLength length of the race track
+     * @param selectedHorses list of chosen horse image filenames
+     * @param chosenColour the selected colour of the track
+     * @param customHorses list of custom horse objects
+     */
     public RacePanel(int tracks, int raceLength, List<String>selectedHorses, Color chosenColour, List<Horse> customHorses) {
         setLayout(new GridLayout(tracks, raceLength));
         horseLabels = new ArrayList<>();
@@ -42,6 +65,13 @@ public class RacePanel extends JPanel{
         }
     }
 
+    /**
+     * Scales the image to a size of 40x40 pixels to be
+     * added to a JLabel. The scaled image is returned
+     * 
+     * @param filename the file path of the image to be scaled
+     * @return ImageIcon the scaled image icon
+     */
     private ImageIcon getScaledImage(String filename) {
         ImageIcon horseIcon = new ImageIcon(filename);
         Image image = horseIcon.getImage();
@@ -49,6 +79,14 @@ public class RacePanel extends JPanel{
         return new ImageIcon(scaledImage);
     }
 
+    /**
+     * Updates the race panel to show the current horse
+     * positions. If a horse has fallen, the horse icon
+     * is replaced with a grave icon. Otherwise, the horse
+     * icon position is updated based on distance travelled
+     * 
+     * @param horses list of horse objects to update
+     */
     public void updateRace(ArrayList<Horse> horses) {
         for (int i = 0; i < horses.size(); i++) {
             if (horses.get(i).hasFallen()) {

@@ -2,11 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.*;
 
+/**
+ * Winning horses display which is a custom JDialog window
+ * 
+ * @author Aneeka 
+ * @version 1.0 (24th April 2024)
+ */
 public class WinnerOverlay extends JDialog {
     private JTextPane textPane;
 
+    /**
+     * Constructor for overlay window which displays
+     * a textpane for the winning horses along with a
+     * flag icon
+     * 
+     * @param parent the main GUI window
+     * @param winner the winning horse(s)
+     */
     public WinnerOverlay(JFrame parent, String winner) {
-        super(parent, "Winner", ModalityType.MODELESS); // Set modality type to modeless
+        super(parent, "Results", ModalityType.MODELESS);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(100, 120);
         setLocationRelativeTo(parent);
@@ -34,15 +48,14 @@ public class WinnerOverlay extends JDialog {
             }
             winnerText += winners[winners.length - 1].replaceAll(",\\s*", "");
             setSize(180, 130);
-            setLocationRelativeTo(parent);
         } else if (winner.length() < 1) {
             winnerText = "Race terminated. All horses have fallen.";
             setSize(180, 150);
-            setLocationRelativeTo(parent);
             flagLabel.setIcon(getScaledImage("horses/grave.png", 60, 60));
         } else {
             winnerText = "The winner is " + winner.replaceAll(",\\s*", "");
         }
+        setLocationRelativeTo(parent);
 
         try {
             doc.insertString(doc.getLength(), winnerText, boldStyle);
@@ -54,6 +67,14 @@ public class WinnerOverlay extends JDialog {
         getContentPane().add(flagLabel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Returns a scaled image icon that can be added to a JLabel
+     * 
+     * @param filename path to the image file
+     * @param width width to scale the image
+     * @param height height to scale the image
+     * @return ImageIcon the scaled image icon
+     */
     private ImageIcon getScaledImage(String filename, int width, int height) {
         ImageIcon horseIcon = new ImageIcon(filename);
         Image image = horseIcon.getImage();
@@ -61,6 +82,9 @@ public class WinnerOverlay extends JDialog {
         return new ImageIcon(scaledImage);
     }
 
+    /**
+     * Closes the dialog window and resets visibility
+     */
     public void closeDialog() {
         setVisible(false);
         dispose();

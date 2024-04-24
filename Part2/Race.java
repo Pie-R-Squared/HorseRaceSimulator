@@ -1,4 +1,3 @@
-//import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,11 +7,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A three-horse race, each horse running in its own lane
- * for a given distance
+ * A multiple-horse race between 2-14 tracks, each horse running
+ * in its own lane for a given distance between 2-30m
  * 
- * @author McFarewell
- * @version 1.0
+ * @author Aneeka
+ * @version 2.0 (24th April 2024)
  */
 public class Race
 {
@@ -29,7 +28,12 @@ public class Race
 
     /**
      * Constructor for objects of class Race
-     * Initially there are no horses in the lanes
+     * Initially there are no horses in the lanes and there
+     * are 3 lanes by default. The race is updated on a timer
+     * which moves horses along or makes them fall. Winners
+     * are determined by the first horse to reach the end
+     * but multiple winners can be declared in the event of a draw.
+     * Stats and bet windows are updated through this class
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
@@ -112,18 +116,39 @@ public class Race
         });
     }
     
+    /**
+     * Re-initialises race length attribute to given value
+     * 
+     * @param raceLength the length of the racetrack
+     */
     public void setRaceLength(int raceLength) {
         this.raceLength = raceLength;
     }
 
+    /**
+     * Re-initialises tracks attribute to given value
+     * 
+     * @param tracks the number of tracks/lanes
+     */
     public void setTracks(int tracks) {
         this.tracks = tracks;
     }
     
+    /**
+     * Initialises the main GUI window so updates can be passed
+     * directly from the Race class
+     * 
+     * @param raceGUI the main GUI window
+     */
     public void setGUI(HorseRaceSimulatorGUI raceGUI) {
         this.raceGUI = raceGUI;
     }
 
+    /**
+     * Generates a random confidence level between 0.1 and 0.9
+     * 
+     * @return double random confidence level
+     */
     private double generateRandomConfidence() {
         Random randomStream = new Random();
         int randomInt = randomStream.nextInt(9) + 1;
@@ -131,6 +156,13 @@ public class Race
         return randomConfidenceLevel;
     }
 
+    /**
+     * Returns the horses in the race. If the number of horses
+     * is less than the tracks, unnamed horses are added to fill
+     * each lane. The updated list is then returned
+     * 
+     * @return List<Horse> the horses in the race
+     */
     public List<Horse> getHorses() {
         int num = horses.size();
 
@@ -167,9 +199,13 @@ public class Race
     
     /**
      * Start the race
-     * The horse are brought to the start and
-     * then repeatedly moved forward until the 
-     * race is finished
+     * The horses in the list are brought to the start and
+     * confidence values adjusted so they're in the range
+     * 0.1 to 0.9. Extra horses that don't have a lane
+     * are removed. The timer is started and a new stats
+     * instance is created by passing the horses
+     * 
+     * @param customHorses the customised list of horses to race
      */
     public void startRaceGUI(List<Horse> customHorses)
     {
@@ -194,14 +230,20 @@ public class Race
         stats = new Statistics(horses);
     }
 
+    /**
+     * Updates statistics using start and end times as well
+     * as the race length
+     */
     private void updateStats() {
         stats.updateStatistics(this, startTime, endTime, raceLength);
     }
     
     /**
      * Randomly make a horse move forward or fall depending
-     * on its confidence rating
-     * A fallen horse cannot move
+     * on its confidence rating. A fallen horse cannot move.
+     * The probability that the horse will fall is very small (max is 0.1)
+     * But will also depend exponentially on confidence so if
+     * you double the confidence, the probability that it will fall is *2
      * 
      * @param theHorse the horse to be moved
      */
@@ -210,15 +252,11 @@ public class Race
         
         if  (!theHorse.hasFallen())
         {
-            //the probability that the horse will move forward depends on the confidence;
             if (Math.random() < theHorse.getConfidence())
             {
                theHorse.moveForward();
             }
             
-            //the probability that the horse will fall is very small (max is 0.1)
-            //but will also will depends exponentially on confidence 
-            //so if you double the confidence, the probability that it will fall is *2
             if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
             {
                 if (!raceWonBy(theHorse)) {
@@ -249,7 +287,10 @@ public class Race
     }
     
     /***
-     * Print the race on the terminal
+     * Constructs a textual view of the race track, lane
+     * by lane using horses current positions
+     * 
+     * @return String representation of current race frame
      */
     private String printRace()
     {
@@ -276,10 +317,13 @@ public class Race
     }
     
     /**
-     * print a horse's lane during the race
+     * Return a horse's lane during the race
      * for example
      * |           X                      |
      * to show how far the horse has run
+     * 
+     * @param theHorse the horse to be printed
+     * @return String representation of the horse's lane
      */
     private String printLane(Horse theHorse)
     {
@@ -309,10 +353,12 @@ public class Race
         
     
     /***
-     * print a character a given number of times.
-     * e.g. printmany('x',5) will print: xxxxx
+     * Return a character appended a given number of times.
+     * e.g. multiplePrint('x',5) will return: xxxxx
      * 
-     * @param aChar the character to Print
+     * @param aChar the character in question
+     * @param times the number of times to repeat the character
+     * @return String the character repeated the given number of times
      */
     private String multiplePrint(char aChar, int times)
     {

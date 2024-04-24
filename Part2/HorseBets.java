@@ -5,6 +5,15 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.Random;
 
+/**
+ * Horse Bets class which displays current track conditions,
+ * horse odds and allows the user to place bets on horses.
+ * The user can view their betting history upon a race
+ * ending after placing a bet
+ * 
+ * @author Aneeka
+ * @version 1.0 (24th April 2024)
+ */
 public class HorseBets extends JFrame {
 
     private Account account;
@@ -18,6 +27,18 @@ public class HorseBets extends JFrame {
     private String[] conditions;
     private int tracks;
 
+    /**
+     * Constructor for objects of class HorseBets
+     * Initialises the betting window and layout.
+     * Radio buttons are used for selecting horses
+     * and a text field for entering the bet amount.
+     * A panel is provided for track conditions and
+     * another panel for betting history
+     * 
+     * @param account the user account object
+     * @param horses the list of horses in the race
+     * @param tracks the number of tracks
+     */
     public HorseBets(Account account, List<Horse> horses, int tracks) {
         if (instance != null && instance.isVisible()) {
             instance.dispose();
@@ -89,6 +110,18 @@ public class HorseBets extends JFrame {
         updateTrackConditionsDisplay();
     }
 
+    /**
+     * Updates the user's account if they have made a
+     * valid bet. The names of winning horses is
+     * compared to the selected radio buttons. If they
+     * match, the user receives a profit of the bet
+     * amount x odds. If the user loses, they lose
+     * the bet amount. Losing results in a hint window
+     * being displayed. The winnings/losses are saved
+     * into a file
+     * 
+     * @param winner the winning horse(s) separated by ","
+     */
     public void updateAccount(String winner) {
         String[] horseNames = winner.split(", ");
         totalBetWinnings = 0;
@@ -121,6 +154,11 @@ public class HorseBets extends JFrame {
         updateTrackConditionsDisplay();
     }
 
+    /**
+     * Validates the user has selected one of the options
+     * 
+     * @return true if an option is selected, false otherwise
+     */
     private boolean isOptionSelected() {
         for (JRadioButton option : options) {
             if (option.isSelected()) {
@@ -130,6 +168,11 @@ public class HorseBets extends JFrame {
         return false;
     }
 
+    /**
+     * Updates the track conditions panel with randomised
+     * track conditions. The odds of each horse are displayed
+     * as well as the user's current balance
+     */
     private void updateTrackConditionsDisplay() {
         conditions = generateRandomConditions();
         trackConditionsText.setText("Funds: " + account.getBalance() + " Ʊ\n- - - - - -\nTrack Conditions: " + conditions[0] + "\nTemperature: " + conditions[1] + "\nCurrent Odds:");
@@ -139,6 +182,13 @@ public class HorseBets extends JFrame {
         trackConditionsText.setEditable(false);
     }
 
+    /**
+     * Generates a random track firmness level and a weather state
+     * Firmness ranges from "firm" to "heavy", where "firm" is better
+     * Weather states range from "sunny" to "snowy"
+     * 
+     * @return String[] array of track firmness and weather state
+     */
     private String[] generateRandomConditions() {
         String[] firmness = {"firm", "good", "soft", "heavy"}; // Firmness of track
         String[] weather = {"sunny", "cloudy", "rainy", "snowy"}; // Weather state
@@ -148,6 +198,15 @@ public class HorseBets extends JFrame {
         return new String[] {firmness[randomFirmIndex], weather[randomWeatherIndex]};
     }
 
+    /**
+     * Retrieves the odds from the file that was updated in the
+     * Statistics class. Applies additional track conditions factor
+     * to the odds. Good conditions increase the odds by 1, bad
+     * conditions further increase it
+     * 
+     * @param horse the horse object to retrieve odds for
+     * @return int the modified odds of the horse
+     */
     private int getOdds(Horse horse) {
         try (BufferedReader horseStats = new BufferedReader(new FileReader("horse_statistics.csv"))) {
             String line;
@@ -175,6 +234,13 @@ public class HorseBets extends JFrame {
         return 0;
     }
 
+    /**
+     * Saves the user's latest bet to the history file. Add to winnings
+     * if bet won, or add to losses if bet lost. The user's name, winnings,
+     * losses, bet amount and date timestamp are saved to the file
+     * 
+     * @param betWon true if the user won the bet, false otherwise
+     */
     private void saveToFile(boolean betWon) {
         double winnings = 0.0;
         double losses = 0.0;
@@ -207,6 +273,10 @@ public class HorseBets extends JFrame {
         }
     }
 
+    /**
+     * Displays the user's betting history in the text area using
+     * the information added to the bet history file
+     */
     private void displayHistory() {
         betHistoryTextArea.setText("");
         try (BufferedReader bettingHistory = new BufferedReader(new FileReader("betting_history.csv"))) {

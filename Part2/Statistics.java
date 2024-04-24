@@ -6,6 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
+/**
+ * Statistics class which displays the statistics of the horses
+ * in the race. Calculates and stores details such as wins, falls,
+ * average speed, finish times, win ratio and betting odds in
+ * HashMaps. Stats are saved to a file for future reference and
+ * loaded into a JTextArea for display
+ * 
+ * @author Aneeka
+ * @version 1.0 (24th April 2024)
+ */
 public class Statistics extends JFrame {
     private static Map<String, Integer> horseWins = new HashMap<>();
     private static Map<String, Integer> horseFalls = new HashMap<>();
@@ -20,6 +30,13 @@ public class Statistics extends JFrame {
     private JTextArea statsArea;
     private static Statistics instance;
 
+    /**
+     * First constructor for objects of class Statistics
+     * Initialises the window and sets the location relative
+     * to the main GUI window
+     * 
+     * @param raceGUI main GUI window
+     */
     public Statistics(HorseRaceSimulatorGUI raceGUI) {
         if (instance != null && instance.isVisible()) {
             instance.dispose();
@@ -30,6 +47,14 @@ public class Statistics extends JFrame {
             setLocation(raceGUI.getX(), raceGUI.getHeight() + 10);
     }
 
+    /**
+     * Second constructor for objects of class Statistics
+     * Initialises the window and displays the statistics.
+     * This constructor is intended to be called from the
+     * Race class
+     * 
+     * @param horses the list of horses in the race
+     */
     public Statistics(ArrayList<Horse> horses) {
         if (instance != null && instance.isVisible()) {
             instance.dispose();
@@ -44,6 +69,10 @@ public class Statistics extends JFrame {
             setLocation(10, 410);
     }
 
+    /**
+     * Initialises the window layout and organises panels
+     * for different statistics components
+     */
     private void initialise() {
         setTitle("Analyse Race Statistics");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -66,6 +95,13 @@ public class Statistics extends JFrame {
         getContentPane().add(miniRaceWindow, BorderLayout.NORTH);
     }
 
+    /**
+     * Re-initalises the graph panel with new progress bars
+     * to allow them to updated on the Race timer ticks. Also
+     * resizes the window to fit the content if needed
+     * 
+     * @param horses the list of horses in the race
+     */
     public void reinitialise(ArrayList<Horse> horses) {
         graphPanel.removeAll();
         if (horses != null) {
@@ -84,18 +120,34 @@ public class Statistics extends JFrame {
         resizeToFitContent();
     }
 
+    /**
+     * Appends text to the mini race window
+     * 
+     * @param text the text to be added
+     */
     public void appendText(String text) {
         raceTextArea.append(text);
     }
 
-    public void clearText() {
-        raceTextArea.setText("");
-    }
-
+    /**
+     * Updates the textual view of the race in the mini race window
+     * 
+     * @param raceInfo the textual display of the race
+     */
     public void updateRace(String raceInfo) {
         raceTextArea.setText(raceInfo);
     }
 
+    /**
+     * Updates the statistics by retrieving past values from the HashMaps
+     * and adding the new values. Calculates win ratio, averages and betting
+     * odds. Saves the stats to a file for future reference
+     * 
+     * @param race race object which is used to obtain win status of horses
+     * @param startTime starting time of the race
+     * @param endTime ending time of the race
+     * @param raceLength total length of race track
+     */
     public void updateStatistics(Race race, long startTime, long endTime, int raceLength) {
 
         for (Horse horse : horses) {
@@ -134,6 +186,13 @@ public class Statistics extends JFrame {
         saveToFile();
     }
 
+    /**
+     * Saves calculated statistics to a file for later reference.
+     * File format is CSV for easier reading and editing. Data
+     * is formatted to 2 decimal places for speed and finish times,
+     * and to 1 decimal place for win ratio. Betting odds are a
+     * whole number formatted as 'odds:1'
+     */
     private void saveToFile() {
         try (PrintWriter horseStats = new PrintWriter("horse_statistics.csv")) {
             horseStats.println("Horse, Wins, Falls, Avg Spd(m/s), Finish(s), Win Ratio, Bet Odds");
@@ -152,6 +211,11 @@ public class Statistics extends JFrame {
         }
     }
 
+    /**
+     * Displays the stats by appending to the text area. 
+     * Information is read from the file and null values
+     * are formatted as 0.0. The window is resized if needed
+     */
     public void displayStats() {
         statsArea = new JTextArea(100, 100);
         statsArea.setEditable(false);
@@ -183,6 +247,11 @@ public class Statistics extends JFrame {
         resizeToFitContent();
     }
     
+    /**
+     * Adjusts the window size to fit the content, with
+     * varying dimensions, depending on graph panel and 
+     * textarea heights
+     */
     private void resizeToFitContent() {
         if (graphPanel.getHeight() > raceTextArea.getHeight()/2 && graphPanel.getHeight() < 150){
             setSize(getWidth(), 500);
@@ -194,6 +263,15 @@ public class Statistics extends JFrame {
             setSize(600, 400);
     }
 
+    /**
+     * Calculates the average for a particular statistic Map.
+     * Adds new value to the total and divides by total races
+     * 
+     * @param map HashMap containing previous average of stat
+     * @param newValue new value to be added
+     * @param horseName name of the horse to search map
+     * @return double new average value
+     */
     private double calculateAverage(Map<String, Double> map, double newValue, String horseName) {
         if (totalRaces > 0) {
             double newTotal = map.getOrDefault(horseName, 0.0) * totalRaces + newValue;
@@ -204,10 +282,28 @@ public class Statistics extends JFrame {
         }
     }
 
+    /**
+     * Calculates betting odds based on performance metrics.
+     * A percentage weight of each metric is used, then the
+     * absolute value of the odds is taken to account
+     * for negatives
+     * 
+     * @param totalWins total wins of the horse
+     * @param totalFalls total falls of the horse
+     * @param avgSpeed current average speed of the horse
+     * @param avgFinishTime current average finish time of the horse
+     * @return double betting odds for the horse
+     */
     private double calculateBettingOdds(int totalWins, int totalFalls, double avgSpeed, double avgFinishTime) {
         return Math.abs(1 / ((totalWins * 0.4 - totalFalls * 0.1 + avgSpeed * 0.3 + avgFinishTime * 0.2) - 1));
     }
     
+    /**
+     * Formats null values so that they are displayed as 0.0
+     * 
+     * @param field the field read from the file
+     * @return String formatted field
+     */
     private String formatNullValues(String field) {
         if (field.equals("null") || field.trim().isEmpty())
             return "0";
@@ -215,6 +311,13 @@ public class Statistics extends JFrame {
             return field;
     }
 
+    /**
+     * Formats Infinity, -Infinity and NaN values to 0.0
+     * This ensures that the stats are valid
+     * 
+     * @param number the number to be formatted
+     * @return Double formatted number
+     */
     private Double formatInfinitiesAndNaNs(double number) {
         if (Double.isInfinite(number) || Double.isNaN(number))
             return 0.0;
@@ -222,6 +325,15 @@ public class Statistics extends JFrame {
             return number;
     }
 
+    /**
+     * Updates the progress bars every race timer tick.
+     * Progress bars display the distance travelled, average
+     * speed and finish time of each horse in real-time
+     * 
+     * @param distance total race distance
+     * @param startTime starting time of the race
+     * @param finished flag to check if the race has finished
+     */
     public void updateProgressBars(int distance, long startTime, boolean finished) {
         long time = System.currentTimeMillis();
         double elapsedTime = (time - startTime) / 1000.0;
