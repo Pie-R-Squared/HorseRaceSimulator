@@ -1,13 +1,7 @@
 Horse, Wins, Falls, Avg Spd(m/s), Finish(s), Win Ratio, Bet Odds
-<<<<<<< HEAD
 Jack, null, 2, 2.17, 1.72, 0.0, 5:1
 Joey, 1, 2, 3.28, 1.65, 0.2, 2:1
 Max, 2, 2, 3.75, 1.20, 0.4, 1:1
 unnamed3, 2, 1, 2.66, 0.53, 0.2, 2:1
 unnamed4, null, 2, 0.64, 0.44, 0.0, 1:1
 unnamed5, null, 1, 0.33, 3.55, 0.0, 3:1
-=======
-a, 2, 1, 3.85, 1.02, 0.3, 1:1
-b, 1, 1, 2.29, 1.09, 0.3, 5:1
-unnamed2, null, null, 1.31, 0.48, 0.0, 2:1
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c

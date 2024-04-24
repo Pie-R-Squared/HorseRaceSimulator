@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
-<<<<<<< HEAD
 /**
  * Statistics class which displays the statistics of the horses
  * in the race. Calculates and stores details such as wins, falls,
@@ -17,8 +16,6 @@ import java.io.*;
  * @author Aneeka
  * @version 1.0 (24th April 2024)
  */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
 public class Statistics extends JFrame {
     private static Map<String, Integer> horseWins = new HashMap<>();
     private static Map<String, Integer> horseFalls = new HashMap<>();
@@ -33,7 +30,6 @@ public class Statistics extends JFrame {
     private JTextArea statsArea;
     private static Statistics instance;
 
-<<<<<<< HEAD
     /**
      * First constructor for objects of class Statistics
      * Initialises the window and sets the location relative
@@ -41,8 +37,6 @@ public class Statistics extends JFrame {
      * 
      * @param raceGUI main GUI window
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public Statistics(HorseRaceSimulatorGUI raceGUI) {
         if (instance != null && instance.isVisible()) {
             instance.dispose();
@@ -53,7 +47,6 @@ public class Statistics extends JFrame {
             setLocation(raceGUI.getX(), raceGUI.getHeight() + 10);
     }
 
-<<<<<<< HEAD
     /**
      * Second constructor for objects of class Statistics
      * Initialises the window and displays the statistics.
@@ -62,8 +55,6 @@ public class Statistics extends JFrame {
      * 
      * @param horses the list of horses in the race
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public Statistics(ArrayList<Horse> horses) {
         if (instance != null && instance.isVisible()) {
             instance.dispose();
@@ -78,13 +69,10 @@ public class Statistics extends JFrame {
             setLocation(10, 410);
     }
 
-<<<<<<< HEAD
     /**
      * Initialises the window layout and organises panels
      * for different statistics components
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void initialise() {
         setTitle("Analyse Race Statistics");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -107,7 +95,6 @@ public class Statistics extends JFrame {
         getContentPane().add(miniRaceWindow, BorderLayout.NORTH);
     }
 
-<<<<<<< HEAD
     /**
      * Re-initalises the graph panel with new progress bars
      * to allow them to updated on the Race timer ticks. Also
@@ -115,8 +102,6 @@ public class Statistics extends JFrame {
      * 
      * @param horses the list of horses in the race
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void reinitialise(ArrayList<Horse> horses) {
         graphPanel.removeAll();
         if (horses != null) {
@@ -135,35 +120,24 @@ public class Statistics extends JFrame {
         resizeToFitContent();
     }
 
-<<<<<<< HEAD
     /**
      * Appends text to the mini race window
      * 
      * @param text the text to be added
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void appendText(String text) {
         raceTextArea.append(text);
     }
 
-<<<<<<< HEAD
     /**
      * Updates the textual view of the race in the mini race window
      * 
      * @param raceInfo the textual display of the race
      */
-=======
-    public void clearText() {
-        raceTextArea.setText("");
-    }
-
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void updateRace(String raceInfo) {
         raceTextArea.setText(raceInfo);
     }
 
-<<<<<<< HEAD
     /**
      * Updates the statistics by retrieving past values from the HashMaps
      * and adding the new values. Calculates win ratio, averages and betting
@@ -174,8 +148,6 @@ public class Statistics extends JFrame {
      * @param endTime ending time of the race
      * @param raceLength total length of race track
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void updateStatistics(Race race, long startTime, long endTime, int raceLength) {
 
         for (Horse horse : horses) {
@@ -214,7 +186,6 @@ public class Statistics extends JFrame {
         saveToFile();
     }
 
-<<<<<<< HEAD
     /**
      * Saves calculated statistics to a file for later reference.
      * File format is CSV for easier reading and editing. Data
@@ -222,8 +193,6 @@ public class Statistics extends JFrame {
      * and to 1 decimal place for win ratio. Betting odds are a
      * whole number formatted as 'odds:1'
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void saveToFile() {
         try (PrintWriter horseStats = new PrintWriter("horse_statistics.csv")) {
             horseStats.println("Horse, Wins, Falls, Avg Spd(m/s), Finish(s), Win Ratio, Bet Odds");
@@ -242,14 +211,11 @@ public class Statistics extends JFrame {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Displays the stats by appending to the text area. 
      * Information is read from the file and null values
      * are formatted as 0.0. The window is resized if needed
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void displayStats() {
         statsArea = new JTextArea(100, 100);
         statsArea.setEditable(false);
@@ -281,14 +247,11 @@ public class Statistics extends JFrame {
         resizeToFitContent();
     }
     
-<<<<<<< HEAD
     /**
      * Adjusts the window size to fit the content, with
      * varying dimensions, depending on graph panel and 
      * textarea heights
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void resizeToFitContent() {
         if (graphPanel.getHeight() > raceTextArea.getHeight()/2 && graphPanel.getHeight() < 150){
             setSize(getWidth(), 500);
@@ -300,7 +263,6 @@ public class Statistics extends JFrame {
             setSize(600, 400);
     }
 
-<<<<<<< HEAD
     /**
      * Calculates the average for a particular statistic Map.
      * Adds new value to the total and divides by total races
@@ -310,8 +272,6 @@ public class Statistics extends JFrame {
      * @param horseName name of the horse to search map
      * @return double new average value
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private double calculateAverage(Map<String, Double> map, double newValue, String horseName) {
         if (totalRaces > 0) {
             double newTotal = map.getOrDefault(horseName, 0.0) * totalRaces + newValue;
@@ -322,7 +282,6 @@ public class Statistics extends JFrame {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Calculates betting odds based on performance metrics.
      * A percentage weight of each metric is used, then the
@@ -335,21 +294,16 @@ public class Statistics extends JFrame {
      * @param avgFinishTime current average finish time of the horse
      * @return double betting odds for the horse
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private double calculateBettingOdds(int totalWins, int totalFalls, double avgSpeed, double avgFinishTime) {
         return Math.abs(1 / ((totalWins * 0.4 - totalFalls * 0.1 + avgSpeed * 0.3 + avgFinishTime * 0.2) - 1));
     }
     
-<<<<<<< HEAD
     /**
      * Formats null values so that they are displayed as 0.0
      * 
      * @param field the field read from the file
      * @return String formatted field
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private String formatNullValues(String field) {
         if (field.equals("null") || field.trim().isEmpty())
             return "0";
@@ -357,7 +311,6 @@ public class Statistics extends JFrame {
             return field;
     }
 
-<<<<<<< HEAD
     /**
      * Formats Infinity, -Infinity and NaN values to 0.0
      * This ensures that the stats are valid
@@ -365,8 +318,6 @@ public class Statistics extends JFrame {
      * @param number the number to be formatted
      * @return Double formatted number
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private Double formatInfinitiesAndNaNs(double number) {
         if (Double.isInfinite(number) || Double.isNaN(number))
             return 0.0;
@@ -374,7 +325,6 @@ public class Statistics extends JFrame {
             return number;
     }
 
-<<<<<<< HEAD
     /**
      * Updates the progress bars every race timer tick.
      * Progress bars display the distance travelled, average
@@ -384,8 +334,6 @@ public class Statistics extends JFrame {
      * @param startTime starting time of the race
      * @param finished flag to check if the race has finished
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void updateProgressBars(int distance, long startTime, boolean finished) {
         long time = System.currentTimeMillis();
         double elapsedTime = (time - startTime) / 1000.0;

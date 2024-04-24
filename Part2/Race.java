@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-//import java.util.concurrent.TimeUnit;
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
 import java.lang.Math;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,19 +7,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
-<<<<<<< HEAD
  * A multiple-horse race between 2-14 tracks, each horse running
  * in its own lane for a given distance between 2-30m
  * 
  * @author Aneeka
  * @version 2.0 (24th April 2024)
-=======
- * A three-horse race, each horse running in its own lane
- * for a given distance
- * 
- * @author McFarewell
- * @version 1.0
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
  */
 public class Race
 {
@@ -40,16 +28,12 @@ public class Race
 
     /**
      * Constructor for objects of class Race
-<<<<<<< HEAD
      * Initially there are no horses in the lanes and there
      * are 3 lanes by default. The race is updated on a timer
      * which moves horses along or makes them fall. Winners
      * are determined by the first horse to reach the end
      * but multiple winners can be declared in the event of a draw.
      * Stats and bet windows are updated through this class
-=======
-     * Initially there are no horses in the lanes
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
@@ -132,51 +116,39 @@ public class Race
         });
     }
     
-<<<<<<< HEAD
     /**
      * Re-initialises race length attribute to given value
      * 
      * @param raceLength the length of the racetrack
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void setRaceLength(int raceLength) {
         this.raceLength = raceLength;
     }
 
-<<<<<<< HEAD
     /**
      * Re-initialises tracks attribute to given value
      * 
      * @param tracks the number of tracks/lanes
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void setTracks(int tracks) {
         this.tracks = tracks;
     }
     
-<<<<<<< HEAD
     /**
      * Initialises the main GUI window so updates can be passed
      * directly from the Race class
      * 
      * @param raceGUI the main GUI window
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void setGUI(HorseRaceSimulatorGUI raceGUI) {
         this.raceGUI = raceGUI;
     }
 
-<<<<<<< HEAD
     /**
      * Generates a random confidence level between 0.1 and 0.9
      * 
      * @return double random confidence level
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private double generateRandomConfidence() {
         Random randomStream = new Random();
         int randomInt = randomStream.nextInt(9) + 1;
@@ -184,7 +156,6 @@ public class Race
         return randomConfidenceLevel;
     }
 
-<<<<<<< HEAD
     /**
      * Returns the horses in the race. If the number of horses
      * is less than the tracks, unnamed horses are added to fill
@@ -192,8 +163,6 @@ public class Race
      * 
      * @return List<Horse> the horses in the race
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public List<Horse> getHorses() {
         int num = horses.size();
 
@@ -230,7 +199,6 @@ public class Race
     
     /**
      * Start the race
-<<<<<<< HEAD
      * The horses in the list are brought to the start and
      * confidence values adjusted so they're in the range
      * 0.1 to 0.9. Extra horses that don't have a lane
@@ -238,11 +206,6 @@ public class Race
      * instance is created by passing the horses
      * 
      * @param customHorses the customised list of horses to race
-=======
-     * The horse are brought to the start and
-     * then repeatedly moved forward until the 
-     * race is finished
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
      */
     public void startRaceGUI(List<Horse> customHorses)
     {
@@ -267,28 +230,20 @@ public class Race
         stats = new Statistics(horses);
     }
 
-<<<<<<< HEAD
     /**
      * Updates statistics using start and end times as well
      * as the race length
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void updateStats() {
         stats.updateStatistics(this, startTime, endTime, raceLength);
     }
     
     /**
      * Randomly make a horse move forward or fall depending
-<<<<<<< HEAD
      * on its confidence rating. A fallen horse cannot move.
      * The probability that the horse will fall is very small (max is 0.1)
      * But will also depend exponentially on confidence so if
      * you double the confidence, the probability that it will fall is *2
-=======
-     * on its confidence rating
-     * A fallen horse cannot move
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
      * 
      * @param theHorse the horse to be moved
      */
@@ -297,21 +252,11 @@ public class Race
         
         if  (!theHorse.hasFallen())
         {
-<<<<<<< HEAD
-=======
-            //the probability that the horse will move forward depends on the confidence;
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
             if (Math.random() < theHorse.getConfidence())
             {
                theHorse.moveForward();
             }
             
-<<<<<<< HEAD
-=======
-            //the probability that the horse will fall is very small (max is 0.1)
-            //but will also will depends exponentially on confidence 
-            //so if you double the confidence, the probability that it will fall is *2
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
             if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
             {
                 if (!raceWonBy(theHorse)) {
@@ -342,14 +287,10 @@ public class Race
     }
     
     /***
-<<<<<<< HEAD
      * Constructs a textual view of the race track, lane
      * by lane using horses current positions
      * 
      * @return String representation of current race frame
-=======
-     * Print the race on the terminal
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
      */
     private String printRace()
     {
@@ -376,7 +317,6 @@ public class Race
     }
     
     /**
-<<<<<<< HEAD
      * Return a horse's lane during the race
      * for example
      * |           X                      |
@@ -384,12 +324,6 @@ public class Race
      * 
      * @param theHorse the horse to be printed
      * @return String representation of the horse's lane
-=======
-     * print a horse's lane during the race
-     * for example
-     * |           X                      |
-     * to show how far the horse has run
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
      */
     private String printLane(Horse theHorse)
     {
@@ -419,19 +353,12 @@ public class Race
         
     
     /***
-<<<<<<< HEAD
      * Return a character appended a given number of times.
      * e.g. multiplePrint('x',5) will return: xxxxx
      * 
      * @param aChar the character in question
      * @param times the number of times to repeat the character
      * @return String the character repeated the given number of times
-=======
-     * print a character a given number of times.
-     * e.g. printmany('x',5) will print: xxxxx
-     * 
-     * @param aChar the character to Print
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
      */
     private String multiplePrint(char aChar, int times)
     {

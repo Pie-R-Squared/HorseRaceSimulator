@@ -3,7 +3,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 /**
  * RacePanel class which is a custom JPanel for displaying
  * the horse race using a user-friendly interface. The track
@@ -32,13 +31,6 @@ public class RacePanel extends JPanel {
      * @param chosenColour the selected colour of the track
      * @param customHorses list of custom horse objects
      */
-=======
-public class RacePanel extends JPanel{
-    private List<JLabel> horseLabels;
-    private List<String> selectedHorses;
-    Color chosenColour;
-
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public RacePanel(int tracks, int raceLength, List<String>selectedHorses, Color chosenColour, List<Horse> customHorses) {
         setLayout(new GridLayout(tracks, raceLength));
         horseLabels = new ArrayList<>();
@@ -73,7 +65,6 @@ public class RacePanel extends JPanel{
         }
     }
 
-<<<<<<< HEAD
     /**
      * Scales the image to a size of 40x40 pixels to be
      * added to a JLabel. The scaled image is returned
@@ -81,8 +72,6 @@ public class RacePanel extends JPanel{
      * @param filename the file path of the image to be scaled
      * @return ImageIcon the scaled image icon
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private ImageIcon getScaledImage(String filename) {
         ImageIcon horseIcon = new ImageIcon(filename);
         Image image = horseIcon.getImage();
@@ -90,7 +79,6 @@ public class RacePanel extends JPanel{
         return new ImageIcon(scaledImage);
     }
 
-<<<<<<< HEAD
     /**
      * Updates the race panel to show the current horse
      * positions. If a horse has fallen, the horse icon
@@ -99,8 +87,6 @@ public class RacePanel extends JPanel{
      * 
      * @param horses list of horse objects to update
      */
-=======
->>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void updateRace(ArrayList<Horse> horses) {
         for (int i = 0; i < horses.size(); i++) {
             if (horses.get(i).hasFallen()) {
