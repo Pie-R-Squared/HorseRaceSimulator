@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.*;
 
+<<<<<<< HEAD
 /**
  * Winning horses display which is a custom JDialog window
  * 
@@ -21,6 +22,13 @@ public class WinnerOverlay extends JDialog {
      */
     public WinnerOverlay(JFrame parent, String winner) {
         super(parent, "Results", ModalityType.MODELESS);
+=======
+public class WinnerOverlay extends JDialog {
+    private JTextPane textPane;
+
+    public WinnerOverlay(JFrame parent, String winner) {
+        super(parent, "Winner", ModalityType.MODELESS); // Set modality type to modeless
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(100, 120);
         setLocationRelativeTo(parent);
@@ -48,14 +56,25 @@ public class WinnerOverlay extends JDialog {
             }
             winnerText += winners[winners.length - 1].replaceAll(",\\s*", "");
             setSize(180, 130);
+<<<<<<< HEAD
         } else if (winner.length() < 1) {
             winnerText = "Race terminated. All horses have fallen.";
             setSize(180, 150);
+=======
+            setLocationRelativeTo(parent);
+        } else if (winner.length() < 1) {
+            winnerText = "Race terminated. All horses have fallen.";
+            setSize(180, 150);
+            setLocationRelativeTo(parent);
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
             flagLabel.setIcon(getScaledImage("horses/grave.png", 60, 60));
         } else {
             winnerText = "The winner is " + winner.replaceAll(",\\s*", "");
         }
+<<<<<<< HEAD
         setLocationRelativeTo(parent);
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
 
         try {
             doc.insertString(doc.getLength(), winnerText, boldStyle);
@@ -67,6 +86,7 @@ public class WinnerOverlay extends JDialog {
         getContentPane().add(flagLabel, BorderLayout.SOUTH);
     }
 
+<<<<<<< HEAD
     /**
      * Returns a scaled image icon that can be added to a JLabel
      * 
@@ -75,6 +95,8 @@ public class WinnerOverlay extends JDialog {
      * @param height height to scale the image
      * @return ImageIcon the scaled image icon
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private ImageIcon getScaledImage(String filename, int width, int height) {
         ImageIcon horseIcon = new ImageIcon(filename);
         Image image = horseIcon.getImage();
@@ -82,9 +104,12 @@ public class WinnerOverlay extends JDialog {
         return new ImageIcon(scaledImage);
     }
 
+<<<<<<< HEAD
     /**
      * Closes the dialog window and resets visibility
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void closeDialog() {
         setVisible(false);
         dispose();

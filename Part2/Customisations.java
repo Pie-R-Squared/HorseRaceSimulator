@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 /**
  * Customisations interface for modifying the default race track
  * and horses. Allows user to specify race length, number of tracks, 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
  * @author Aneeka 
  * @version 1.0 (24th April 2024)
  */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
 public class Customisations extends JFrame {
     private String[] horseImages = {"horses/black_horse.png", "horses/brown_horse.png", "horses/darkbrown_horse.png", "horses/lightbrown_horse.png", "horses/lighterbrown_horse.png", "horses/tan_horse.png"};
     private int selectedHorse = 0;
@@ -26,6 +29,7 @@ public class Customisations extends JFrame {
     private JTextField raceLengthField;
     private JButton saveButton;
     private Timer timer;
+<<<<<<< HEAD
 
     /**
      * Constructor for Customisations class which sets up the interface
@@ -37,6 +41,10 @@ public class Customisations extends JFrame {
      * 
      * @param raceGUI main GUI window which this window is placed relative to
      */
+=======
+    private int index = 0;
+
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public Customisations(HorseRaceSimulatorGUI raceGUI) {
         if (instance != null && instance.isVisible()) {
             instance.dispose();
@@ -142,6 +150,10 @@ public class Customisations extends JFrame {
                         customHorses.add(horse);
                         updateAddedHorses(addedHorsesDisplay, horse);
                         selectedHorses.add(horseImages[selectedHorse]);
+<<<<<<< HEAD
+=======
+                        index++;
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
                         highlightSaveButton();
                     } else if (!isValidEntry(horseConfidence)) {
                         JOptionPane.showMessageDialog(Customisations.this, "Invalid entry. Confidence must be a decimal between 0.0 and 1.0 exclusive.");
@@ -160,8 +172,13 @@ public class Customisations extends JFrame {
         updateHorseLabel(horseLabel);
         JButton backButton = new DarkThemeButton(String.valueOf('\u2B98'));
         JButton forwardButton = new DarkThemeButton(String.valueOf('\u2B9A'));
+<<<<<<< HEAD
         backButton.addActionListener(e -> moveBackward(horseLabel));
         forwardButton.addActionListener(e -> moveForward(horseLabel));
+=======
+        backButton.addActionListener(e -> moveBackward(horseLabel, index));
+        forwardButton.addActionListener(e -> moveForward(horseLabel, index));
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
         horseSelectPanel.add(backButton, BorderLayout.WEST);
         horseSelectPanel.add(horseLabel, BorderLayout.CENTER);
         horseSelectPanel.add(forwardButton, BorderLayout.EAST);
@@ -192,6 +209,7 @@ public class Customisations extends JFrame {
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
 
+<<<<<<< HEAD
     /**
      * Reloads the customisations from previous selection.
      * Horses need to be selected again, but tracks, racelength
@@ -201,12 +219,15 @@ public class Customisations extends JFrame {
      * @param tracks number of tracks (2-14)
      * @param chosenColour track colour selected from colour chooser
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void reloadCustomisations(int raceLength, int tracks, Color chosenColour) {
         raceLengthField.setText(Integer.toString(raceLength));
         tracksAmount.setText(Integer.toString(tracks));
         this.chosenColour = chosenColour;
     }
     
+<<<<<<< HEAD
     /**
      * Validates number is between valid range inclusive
      * 
@@ -215,10 +236,13 @@ public class Customisations extends JFrame {
      * @param high an upper bound which the number must be less than or equal to
      * @return true if number is within the range, false otherwise
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private boolean isValidRange(int number, int low, int high) {
         return number >= low && number <= high;
     }
 
+<<<<<<< HEAD
     /**
      * Moves image slider backwards, updating the selectHorse index.
      * Updates the horse label to reflect the change and highlights
@@ -227,6 +251,9 @@ public class Customisations extends JFrame {
      * @param horseLabel the label displaying the current selected image
      */
     private void moveBackward(JLabel horseLabel) {
+=======
+    private void moveBackward(JLabel horseLabel, int index) {
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
         if (selectedHorse == 0)
             selectedHorse = horseImages.length - 1;
         else
@@ -235,6 +262,7 @@ public class Customisations extends JFrame {
         highlightSaveButton();
     }
 
+<<<<<<< HEAD
     /**
      * Moves image slider forwards, updating the selectHorse index.
      * Updates the horse label to reflect the change and highlights
@@ -243,6 +271,9 @@ public class Customisations extends JFrame {
      * @param horseLabel the label displaying the current selected image
      */
     private void moveForward(JLabel horseLabel) {
+=======
+    private void moveForward(JLabel horseLabel, int index) {
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
         if (selectedHorse == horseImages.length - 1)
             selectedHorse = 0;
         else
@@ -251,12 +282,15 @@ public class Customisations extends JFrame {
         highlightSaveButton();
     }
 
+<<<<<<< HEAD
     /**
      * Scales down the horse image to 100x100 pixels and updates
      * the icon of the horse label with the image
      * 
      * @param horseLabel the label displaying the current selected image
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void updateHorseLabel(JLabel horseLabel) {
         ImageIcon horseIcon = new ImageIcon(horseImages[selectedHorse]);
         Image image = horseIcon.getImage();
@@ -264,22 +298,28 @@ public class Customisations extends JFrame {
         horseLabel.setIcon(new ImageIcon(scaledImage));
     }
 
+<<<<<<< HEAD
     /**
      * Appends the name and confidence of each added horse to the display
      * 
      * @param addedHorsesDisplay the text area displaying the added horses
      * @param horse the horse object to be added
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void updateAddedHorses(JTextArea addedHorsesDisplay, Horse horse) {
         addedHorsesDisplay.append("\t" + horse.getName() + "\t" + String.format("%.1f", horse.getConfidence()) + "\n");
     }
 
+<<<<<<< HEAD
     /**
      * Validates the input is a decimal between 0.0 and 1.0 exclusive
      * 
      * @param input the string input to be validated
      * @return true if the input is a valid decimal, false otherwise
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private boolean isValidEntry(String input) {
         try {
             double entry = Double.parseDouble(input);
@@ -292,10 +332,13 @@ public class Customisations extends JFrame {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Highlights the save button by changing its background and foreground
      * colours to create a fade and flickering effect, based on timer
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void highlightSaveButton() {
         if (timer != null && timer.isRunning())
             timer.stop();

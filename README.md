@@ -5,6 +5,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
+<<<<<<< HEAD
     <li><a href="#set-up">Set Up</a>
       <ul>
         <li><a href="#dependencies">Dependencies</a></li>
@@ -12,6 +13,15 @@
       </ul>
     </li>
     <li><a href="#usage-guidelines">Usage Guidelines</a></li>
+=======
+    <li><a href="#setup">Set Up</a>
+      <ul>
+        <li><a href="#dependencies">Dependencies</a></li>
+        <li><a href="#installation">GUI Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage Guidelines</a></li>
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -45,7 +55,11 @@ Horse Race Simulator project, consisting of part 1 (textual race simulator) and 
 ## Dependencies
 This application requires no additional dependencies, relying solely on those provided in the JDK.
 
+<<<<<<< HEAD
 ## GUI Installation
+=======
+### GUI Installation
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
 
 1. Clone the repository
    ```sh

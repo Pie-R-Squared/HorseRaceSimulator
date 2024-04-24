@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 /**
  * Class for the main GUI window of the Horse Racing Simulator
  * Contains update methods to update the display of other windows
@@ -14,11 +15,17 @@ import java.util.List;
  * @author Aneeka 
  * @version 1.0 (24th April 2024)
  */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
 public class HorseRaceSimulatorGUI extends JFrame {
     public Race race;
     public RacePanel racePanel;
     public Statistics stats;
     public HorseBets bets;
+<<<<<<< HEAD
+=======
+    private JTextArea raceTextArea;
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private int raceLength = 10;
     private int tracks = 3;
     private List<String> selectedHorses = List.of("horses/black_horse.png", "horses/brown_horse.png", "horses/darkbrown_horse.png", "horses/lightbrown_horse.png", "horses/lighterbrown_horse.png", "horses/tan_horse.png");
@@ -27,6 +34,7 @@ public class HorseRaceSimulatorGUI extends JFrame {
     private boolean raceStarted = false;
     private WinnerOverlay overlay;
 
+<<<<<<< HEAD
     /**
      * Constructor for objects of class HorseRaceSimulatorGUI
      * Initialises buttons and event listeners for the main window
@@ -35,6 +43,8 @@ public class HorseRaceSimulatorGUI extends JFrame {
      * @param race the race class object which carries out the
      * main logic. The GUI updates other windows based on race
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public HorseRaceSimulatorGUI(Race race) {
 
         UIManager.put("OptionPane.background", new Color(30, 30, 30));
@@ -51,14 +61,32 @@ public class HorseRaceSimulatorGUI extends JFrame {
         setLocation(getX() + 10, getY() + 10);
         getContentPane().setBackground(new Color(30,30,30));
 
+<<<<<<< HEAD
+=======
+        raceTextArea = new JTextArea(2, 30);
+        raceTextArea.setEditable(false);
+        raceTextArea.setBackground(new Color(30,30,30));
+        raceTextArea.setForeground(Color.WHITE);
+
+        JScrollPane scrollPane = new JScrollPane(raceTextArea);
+        scrollPane.setBorder(null);
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
         racePanel = new RacePanel(tracks, raceLength, selectedHorses, chosenColour, customHorses);
         JPanel buttonsPanel = new JPanel();
 
         getContentPane().add(racePanel, BorderLayout.CENTER);
+<<<<<<< HEAD
+=======
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
 
         JButton startButton = new DarkThemeButton("Start Race");
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
+=======
+                clearText();
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
                 race.startRaceGUI(customHorses);
                 raceStarted = true;
                 closeWinnerDialog();
@@ -105,26 +133,37 @@ public class HorseRaceSimulatorGUI extends JFrame {
         getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
     }
 
+<<<<<<< HEAD
     /**
      * Method to display the winner(s) in a custom dialog box
      * 
      * @param winner the name of the winning horse(s) separated by ","
      */
+=======
+    public void clearText() {
+        raceTextArea.setText("");
+    }
+
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void displayWinner(String winner) {
         closeWinnerDialog();
         overlay = new WinnerOverlay(this, winner);
         overlay.setVisible(true);
     }
 
+<<<<<<< HEAD
     /**
      * Removes the winner dialog box
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void closeWinnerDialog() {
         if (overlay != null) {
             overlay.closeDialog();
         }
     }
 
+<<<<<<< HEAD
     /**
      * Updates the racepanel and tracks the race finished status
      * Sets the raceStarted flag to false when the race finishes
@@ -132,6 +171,8 @@ public class HorseRaceSimulatorGUI extends JFrame {
      * @param horses arraylist of horse objects from the Race class
      * @param finished flag which tracks if the race is finished
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void updateRace(ArrayList<Horse> horses, boolean finished) {
         racePanel.updateRace(horses);
         if (finished) {
@@ -139,6 +180,7 @@ public class HorseRaceSimulatorGUI extends JFrame {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Updates the GUI display based on values passed from Customisations
      * Re-initialises attributes and updates the race panel
@@ -149,6 +191,8 @@ public class HorseRaceSimulatorGUI extends JFrame {
      * @param chosenColour the chosen background colour
      * @param customHorses list of custom horse objects (name, confidence)
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public void updateRaceGUI(int raceLength, int tracks, List<String> selectedHorses, Color chosenColour, List<Horse> customHorses) {
         this.raceLength = raceLength;
         this.tracks = tracks;
@@ -161,10 +205,13 @@ public class HorseRaceSimulatorGUI extends JFrame {
         closeWinnerDialog();
     }
 
+<<<<<<< HEAD
     /**
      * Updates the race panel display, passing in customisations
      * Re-sizes the GUI window to accommodate the race panel
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     private void updateRacePanel() {
         getContentPane().remove(racePanel);
         racePanel = new RacePanel(tracks, raceLength, selectedHorses, chosenColour, customHorses);
@@ -197,10 +244,13 @@ public class HorseRaceSimulatorGUI extends JFrame {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Main method which starts the application
      * Invoke Later used to ensure events execute on EDT
      */
+=======
+>>>>>>> 609657cdc898bcfc0b0f04bce046e1a8ad794e4c
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Race race = new Race(10);
