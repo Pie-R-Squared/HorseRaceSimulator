@@ -45,7 +45,7 @@ public class Customisations extends JFrame {
         
         setTitle("Customise Race Track");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 410);
+        setSize(550, 410);
         setLayout(new BorderLayout());
 
         if (raceGUI.getWidth() > 1000)
@@ -170,8 +170,8 @@ public class Customisations extends JFrame {
         horseSelectPanel.setBackground(new Color(30,30,30));
         JLabel horseLabel = new JLabel();
         updateHorseLabel(horseLabel);
-        JButton backButton = new DarkThemeButton(String.valueOf('\u2B98'));
-        JButton forwardButton = new DarkThemeButton(String.valueOf('\u2B9A'));
+        JButton backButton = new DarkThemeButton(String.valueOf('<'));
+        JButton forwardButton = new DarkThemeButton(String.valueOf('>'));
         backButton.addActionListener(e -> moveBackward(horseLabel));
         forwardButton.addActionListener(e -> moveForward(horseLabel));
         horseSelectPanel.add(backButton, BorderLayout.WEST);

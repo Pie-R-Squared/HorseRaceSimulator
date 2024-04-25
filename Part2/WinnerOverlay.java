@@ -23,7 +23,7 @@ public class WinnerOverlay extends JDialog {
     public WinnerOverlay(JFrame raceGUI, String winner) {
         super(raceGUI, "Results", ModalityType.MODELESS);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setSize(100, 120);
+        setSize(150, 120);
         setLocationRelativeTo(raceGUI);
         setLayout(new BorderLayout());
 
