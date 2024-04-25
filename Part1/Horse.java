@@ -1,13 +1,10 @@
-
 /**
- * Horse class provides a template for creating Horse objects,
- * representing horses in the Race simulation program. A horse
- * is represented by a single character and it has name, distance,
- * fallen and confidence level attributes to determine the
- * state and identity of each Horse object.
+ * Class for creating horse objects to be used in the Race class
+ * Contains accessor methods to return the state of the horse (fallen, distance travelled, name, symbol, confidence)
+ * Contains mutator methods to set the state of the horse (move, confidence, symbol, fallen)
  * 
- * @author Aneeka Ahmad
- * @version 1 (23 March 2024)
+ * @author Aneeka 
+ * @version 2.0 (3rd April 2024)
  */
 public class Horse
 {
@@ -42,7 +39,7 @@ public class Horse
     {
         hasFallen = true;
     }
-
+    
     /**
      * Returns the confidence level of the horse
      * @return the horse confidence level
@@ -51,7 +48,7 @@ public class Horse
     {
         return this.horseConfidence;
     }
-
+    
     /**
      * Returns the distance travelled by the horse
      * @return the horse distance travelled
@@ -60,7 +57,7 @@ public class Horse
     {
         return this.distanceTravelled;
     }
-
+    
     /**
      * Returns the name of the horse
      * @return the horse name
@@ -69,7 +66,7 @@ public class Horse
     {
         return this.horseName;
     }
-
+    
     /**
      * Returns the symbol representing the horse
      * @return the horse symbol
@@ -78,7 +75,7 @@ public class Horse
     {
         return this.horseSymbol;
     }
-
+    
     /**
      * Procedure to reset the horse object
      * Resets distance to 0, fallen status to false
@@ -86,8 +83,9 @@ public class Horse
     public void goBackToStart()
     {
         this.distanceTravelled = 0;
+        this.hasFallen = false;
     }
-
+    
     /**
      * Returns the fallen status of the horse
      * @return true if the horse has fallen, false otherwise
@@ -107,13 +105,18 @@ public class Horse
 
     /**
      * Procedure to set the distance travelled by the horse
-     * @param newDistance the new distance travelled by the horse
+     * Checks that the new confidence is within valid range
+     * The confidence is updated only if it's between 0.1 and 0.9
+     * @param newConfidence the new distance travelled by the horse
      */
     public void setConfidence(double newConfidence)
     {
-        this.horseConfidence = newConfidence;
+        if (newConfidence > 0.9 || newConfidence < 0.1)
+            System.out.println("Invalid entry. Confidence must be between 0.1 and 0.9 inclusive.");
+        else
+            this.horseConfidence = newConfidence;
     }
-
+    
     /**
      * Procedure to set the symbol of the horse
      * @param newSymbol the new symbol representing the horse
