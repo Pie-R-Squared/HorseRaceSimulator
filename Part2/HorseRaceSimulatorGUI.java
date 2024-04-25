@@ -162,13 +162,19 @@ public class HorseRaceSimulatorGUI extends JFrame {
     }
 
     /**
-     * Updates the race panel display, passing in customisations
+     * Updates the race panel display, passing in customisations.
+     * Updates betting window to reflect customisations.
      * Re-sizes the GUI window to accommodate the race panel
      */
     private void updateRacePanel() {
         getContentPane().remove(racePanel);
-        racePanel = new RacePanel(tracks, raceLength, selectedHorses, chosenColour, customHorses);
+        racePanel = new RacePanel(tracks, raceLength, selectedHorses, chosenColour, customHorses != null && !customHorses.isEmpty() ? customHorses : race.getHorses());
         getContentPane().add(racePanel, BorderLayout.CENTER);
+        if (bets != null) {
+            bets.dispose();
+            bets = new HorseBets(new Account("User", 1000.0), customHorses != null && !customHorses.isEmpty() ? customHorses : race.getHorses(), tracks);
+            bets.setVisible(true);
+        }
         revalidate();
         repaint();
 

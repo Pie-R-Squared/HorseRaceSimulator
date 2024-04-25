@@ -32,8 +32,8 @@ public class Customisations extends JFrame {
      * for customising the race track and horses. Disposes of previous
      * customisations instances so only one window is open at a time.
      * Added validation to ensure racelength is between 2-30 and tracks
-     * between 2-14. Name of horse must be alphabetic and confidence must
-     * be between 0.1 and 0.9
+     * between 2-14. Name of horse must be alphabetic (up to 18 chars)
+     * and confidence must be between 0.1 and 0.9
      * 
      * @param raceGUI main GUI window which this window is placed relative to
      */
@@ -45,9 +45,14 @@ public class Customisations extends JFrame {
         
         setTitle("Customise Race Track");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 400);
+        setSize(500, 410);
         setLayout(new BorderLayout());
-        setLocation(raceGUI.getWidth() + 5, raceGUI.getY());
+
+        if (raceGUI.getWidth() > 1000)
+            setLocationRelativeTo(null);
+        else
+            setLocation(raceGUI.getWidth() + 5, raceGUI.getY());
+
         getContentPane().setBackground(new Color(30,30,30));
         UIManager.put("Label.foreground", Color.WHITE);
         UIManager.put("Button.background", new Color(30, 30, 30));
@@ -55,6 +60,7 @@ public class Customisations extends JFrame {
         UIManager.put("Button.foreground", Color.WHITE);
         UIManager.put("RadioButton.foreground", Color.WHITE);
         UIManager.put("TextField.border", BorderFactory.createLineBorder(Color.DARK_GRAY));
+        UIManager.put("TextField.caretForeground", Color.LIGHT_GRAY);
 
         JPanel inputRacePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         tracksAmount = new JTextField(5);
@@ -78,6 +84,12 @@ public class Customisations extends JFrame {
                     int tracks = Integer.parseInt(tracksAmountText);
 
                     if (isValidRange(raceLength, 2, 30) && isValidRange(tracks, 2, 14)) {
+                        if (customHorses.size() > tracks) {
+                            tracks = customHorses.size();
+                            if (customHorses.size() > 14)
+                                tracks = 14;
+                        }
+
                         while (selectedHorses.size() < Integer.parseInt(tracksAmountText)) {
                             selectedHorses.add(horseImages[selectedHorse]);
                             selectedHorse = (selectedHorse + 1) % horseImages.length;
@@ -137,7 +149,7 @@ public class Customisations extends JFrame {
                 if (horseName.isEmpty() || horseConfidence.isEmpty()) {
                     JOptionPane.showMessageDialog(Customisations.this, "Please fill in all fields");
                 } else {
-                    if (isValidEntry(horseConfidence) && horseName.matches("[a-zA-Z]+[\\s[a-zA-Z]+]*")) {
+                    if (isValidEntry(horseConfidence) && horseName.matches("[a-zA-Z]+[\\s[a-zA-Z]+]*") && horseName.length() < 19) {
                         Horse horse = new Horse('\u2658', horseName, Double.parseDouble(horseConfidence));
                         customHorses.add(horse);
                         updateAddedHorses(addedHorsesDisplay, horse);
@@ -146,7 +158,7 @@ public class Customisations extends JFrame {
                     } else if (!isValidEntry(horseConfidence)) {
                         JOptionPane.showMessageDialog(Customisations.this, "Invalid entry. Confidence must be a decimal between 0.0 and 1.0 exclusive.");
                     } else {
-                        JOptionPane.showMessageDialog(Customisations.this, "Invalid entry. Name must be a string of alphabetic characters only.");
+                        JOptionPane.showMessageDialog(Customisations.this, "Invalid entry. Name must be a string of up to 18 alphabetic characters only.");
                     }
                     addHorseName.setText("");
                     addHorseConfidence.setText("");
@@ -271,7 +283,11 @@ public class Customisations extends JFrame {
      * @param horse the horse object to be added
      */
     private void updateAddedHorses(JTextArea addedHorsesDisplay, Horse horse) {
-        addedHorsesDisplay.append("\t" + horse.getName() + "\t" + String.format("%.1f", horse.getConfidence()) + "\n");
+        String gap = "\t\t";
+        if (horse.getName().length() > 14)
+            gap = "\t";
+
+        addedHorsesDisplay.append("\t" + horse.getName() + gap + String.format("%.1f", horse.getConfidence()) + "\n");
     }
 
     /**

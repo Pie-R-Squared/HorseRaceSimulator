@@ -89,6 +89,7 @@ public class HorseBets extends JFrame {
         placeBetButton.addActionListener(e -> {
             try {
                 betAmount = Double.parseDouble(betAmountText.getText());
+
                 if (!isOptionSelected()) {
                     JOptionPane.showMessageDialog(HorseBets.this, "Please select a horse");
                 } else if (betAmount > account.getBalance()) {
@@ -126,6 +127,7 @@ public class HorseBets extends JFrame {
         String[] horseNames = winner.split(", ");
         totalBetWinnings = 0;
         boolean betWon = false;
+
         for (int i = 0; i < horses.size() && i < tracks; i++) {
             for (String horseName : horseNames) {
                 if (!options.toString().contains(horseName))
@@ -142,6 +144,7 @@ public class HorseBets extends JFrame {
             JOptionPane.showMessageDialog(HorseBets.this, betWon ? "Congratulations, you won " + (totalBetWinnings - betAmount) + " Ʊ" : "Bet lost -" + betAmount + " Ʊ\nRemaining balance: " + account.getBalance() + " Ʊ");
             if (!betWon)
                 JOptionPane.showMessageDialog(HorseBets.this, "Hint: Low betting odds have better chances of winning.\nHigher odds have higher payouts.");
+
             saveToFile(betWon);
             displayHistory();
         }
@@ -176,6 +179,7 @@ public class HorseBets extends JFrame {
     private void updateTrackConditionsDisplay() {
         conditions = generateRandomConditions();
         trackConditionsText.setText("Funds: " + account.getBalance() + " Ʊ\n- - - - - -\nTrack Conditions: " + conditions[0] + "\nTemperature: " + conditions[1] + "\nCurrent Odds:");
+
         for (int i = 0; i < horses.size() && i < tracks; i++) {
             trackConditionsText.setText(trackConditionsText.getText() + "\n" + horses.get(i).getName() + " - " + getOdds(horses.get(i)) + ":1");
         }
@@ -190,19 +194,21 @@ public class HorseBets extends JFrame {
      * @return String[] array of track firmness and weather state
      */
     private String[] generateRandomConditions() {
-        String[] firmness = {"firm", "good", "soft", "heavy"}; // Firmness of track
-        String[] weather = {"sunny", "cloudy", "rainy", "snowy"}; // Weather state
+        String[] firmness = {"firm", "good", "soft", "heavy"};
+        String[] weather = {"sunny", "cloudy", "rainy", "snowy"};
         Random randomStream = new Random();
         int randomFirmIndex = randomStream.nextInt(firmness.length);
         int randomWeatherIndex = randomStream.nextInt(weather.length);
+
         return new String[] {firmness[randomFirmIndex], weather[randomWeatherIndex]};
     }
 
     /**
      * Retrieves the odds from the file that was updated in the
      * Statistics class. Applies additional track conditions factor
-     * to the odds. Good conditions increase the odds by 1, bad
-     * conditions further increase it
+     * to the odds. Good conditions don't affect the odds, medium
+     * conditions increase the odds by 1, bad conditions further
+     * increase it
      * 
      * @param horse the horse object to retrieve odds for
      * @return int the modified odds of the horse
@@ -213,6 +219,7 @@ public class HorseBets extends JFrame {
 
             while ((line = horseStats.readLine()) != null) {
                 String[] fields = line.split(", ");
+
                 if (fields[0].equals(horse.getName())) {
                     int odds = Integer.parseInt(fields[6].substring(0, fields[6].indexOf(":")));
                     if (conditions[0].equals("firm") || conditions[1].equals("sunny")) {
@@ -250,6 +257,7 @@ public class HorseBets extends JFrame {
 
             while ((line = bettingHistory.readLine()) != null) {
                 String[] fields = line.split(", ");
+
                 if (fields[0].equals(account.getName())) {
                     winnings = Double.parseDouble(fields[1]);
                     losses = Double.parseDouble(fields[2]);
@@ -279,11 +287,13 @@ public class HorseBets extends JFrame {
      */
     private void displayHistory() {
         betHistoryTextArea.setText("");
+
         try (BufferedReader bettingHistory = new BufferedReader(new FileReader("betting_history.csv"))) {
             String line;
 
             while ((line = bettingHistory.readLine()) != null) {
                 String[] fields = line.split(", ");
+                
                 for (String field : fields) {
                     betHistoryTextArea.append(field + "\t");
                 }

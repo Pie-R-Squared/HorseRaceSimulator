@@ -43,7 +43,8 @@ public class Statistics extends JFrame {
         }
         instance = this;
         initialise();
-        if (getHeight() < 600)
+
+        if (getHeight() < 500)
             setLocation(raceGUI.getX(), raceGUI.getHeight() + 10);
     }
 
@@ -65,8 +66,9 @@ public class Statistics extends JFrame {
         totalRaces++;
         initialise();
         displayStats();
-        if (getHeight() < 600)
-            setLocation(10, 410);
+
+        if (getHeight() < 500)
+            setLocation(10, 310);
     }
 
     /**
@@ -76,7 +78,7 @@ public class Statistics extends JFrame {
     private void initialise() {
         setTitle("Analyse Race Statistics");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 400);
+        setSize(700, 400);
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(30,30,30));
 
@@ -104,6 +106,7 @@ public class Statistics extends JFrame {
      */
     public void reinitialise(ArrayList<Horse> horses) {
         graphPanel.removeAll();
+
         if (horses != null) {
             for (int i = 0; i < horses.size(); i++) {
                 JProgressBar progressBar = new JProgressBar(0, 100);
@@ -114,6 +117,7 @@ public class Statistics extends JFrame {
                 graphPanel.add(progressBar);
             }
         }
+        
         add(graphPanel, BorderLayout.SOUTH);
         revalidate();
         repaint();
@@ -230,10 +234,14 @@ public class Statistics extends JFrame {
 
             while ((line = horseStats.readLine()) != null) {
                 String[] fields = line.split(", ");
-                horseFileStats.add(formatNullValues(fields[0]) + "\t" +
+                String gap = "";
+                if (fields[0].length() <= 14)
+                    gap = "\t";
+
+                horseFileStats.add(formatNullValues(fields[0]) + "\t" + gap +
                 formatNullValues(fields[1]) + "\t" + formatNullValues(fields[2]) + "\t" +
                 formatNullValues(fields[3]) + "\t" + formatNullValues(fields[4]) + "\t" +
-                formatNullValues(fields[5]) + "\t" + formatNullValues(fields[6]));
+                formatNullValues(fields[5]) + "\t" + (fields[6].equals("0:1") ? "1:1" : fields[6]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -253,14 +261,16 @@ public class Statistics extends JFrame {
      * textarea heights
      */
     private void resizeToFitContent() {
-        if (graphPanel.getHeight() > raceTextArea.getHeight()/2 && graphPanel.getHeight() < 150){
+        if (graphPanel.getHeight() > raceTextArea.getHeight()/2 && graphPanel.getHeight() < 120){
             setSize(getWidth(), 500);
+        } else if (graphPanel.getHeight() > raceTextArea.getHeight()) {
+            setSize(getWidth(), 780);
             setLocationRelativeTo(null);
         } else if (graphPanel.getHeight() > raceTextArea.getHeight()/2) {
             setSize(getWidth(), 600);
             setLocationRelativeTo(null);
         } else
-            setSize(600, 400);
+            setSize(700, 400);
     }
 
     /**
@@ -295,7 +305,11 @@ public class Statistics extends JFrame {
      * @return double betting odds for the horse
      */
     private double calculateBettingOdds(int totalWins, int totalFalls, double avgSpeed, double avgFinishTime) {
-        return Math.abs(1 / ((totalWins * 0.4 - totalFalls * 0.1 + avgSpeed * 0.3 + avgFinishTime * 0.2) - 1));
+        double probability = totalWins * 0.4 - totalFalls * 0.1 + avgSpeed * 0.3 + avgFinishTime * 0.2;
+        if (1 - probability == 0)
+            return 0.0;
+
+        return Math.abs(probability / (1 - probability));
     }
     
     /**
@@ -338,6 +352,7 @@ public class Statistics extends JFrame {
         long time = System.currentTimeMillis();
         double elapsedTime = (time - startTime) / 1000.0;
         int horseIndex = 0;
+
         for (Horse horse : horses) {
             int progress = horse.getDistanceTravelled();
             
@@ -345,10 +360,12 @@ public class Statistics extends JFrame {
                 JProgressBar progressBar = (JProgressBar) graphPanel.getComponent(horseIndex);
                 double speed = progress/elapsedTime;
                 double finishTime = 0.0;
+
                 if (horse.hasFallen())
                     speed = 0.0;
                 else if (finished)
                     finishTime = distance / speed;
+
                 progressBar.setValue(progress * 100 / distance);
                 progressBar.setString(horse.getName() + ": " + progress + "m travelled   |   Avg speed: " + String.format("%.2f", speed) + "m/s   |   Finish time: " + String.format("%.2f", finishTime) + "s");
             }

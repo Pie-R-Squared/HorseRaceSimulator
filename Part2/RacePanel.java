@@ -36,6 +36,7 @@ public class RacePanel extends JPanel {
         horseLabels = new ArrayList<>();
         this.selectedHorses = selectedHorses;
         this.chosenColour = chosenColour;
+
         if (customHorses == null || customHorses.size() == 0) {
             customHorses = new ArrayList<>();
             customHorses.add(new Horse('\u2658', "Jack", 0.4));
@@ -55,10 +56,13 @@ public class RacePanel extends JPanel {
             JLabel horseLabel = new JLabel(getScaledImage(selectedHorses.get((i-1)%6)));
             horseLabels.add(horseLabel);
             trackPanel.add(horseLabel);
-            JLabel ghostHorseText = new JLabel(customHorses.get(i-1).getName());
-            ghostHorseText.setForeground(Color.DARK_GRAY);
+            
+            JLabel ghostHorseText = new JLabel(customHorses.get(i-1).getName().toUpperCase());
+            ghostHorseText.setFont(new Font("Arial", Font.BOLD + Font.ITALIC, 12));
+            ghostHorseText.setForeground(new Color(64, 64, 64, 180));
             ghostHorseText.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
             trackPanel.add(ghostHorseText);
+
             trackPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             trackPanel.setBackground(this.chosenColour);
             add(trackPanel);
@@ -94,6 +98,7 @@ public class RacePanel extends JPanel {
             } else {
                 horseLabels.get(i).setIcon(getScaledImage(selectedHorses.get(i%6)));
             }
+            
             int maxDistance = (getWidth() - 40) / 40;
             int horsePosition = Math.min(horses.get(i).getDistanceTravelled(), maxDistance);
     

@@ -27,9 +27,9 @@ public class DarkThemeButton extends JButton {
     public DarkThemeButton(String text) {
         super(text);
         setForeground(Color.WHITE);
-        setContentAreaFilled(false);
         setFocusPainted(false);
         setBorderPainted(false);
+        setContentAreaFilled(false);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -78,9 +78,7 @@ public class DarkThemeButton extends JButton {
         }
 
         g2d.fillRect(0, 0, width, height);
-
         super.paintComponent(g);
-
         g2d.dispose();
     }
 }

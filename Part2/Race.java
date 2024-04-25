@@ -88,29 +88,21 @@ public class Race
                     raceGUI.updateRace(horses, finished);
                     stats.updateRace(raceInfo);
                     stats.appendText("\nAnd the winner is");
+
                     for (Horse h : horses) {
                         if (raceWonBy(h)) {
                             stats.appendText(" " + h.getName());
                             winner += h.getName() + ", ";
                         }
                     }
-                    timer.stop();
-                    endTime = System.currentTimeMillis();
-                    stats.updateProgressBars(raceLength, startTime, finished);
-                    updateStats();
-                    raceGUI.displayWinner(winner);
-                    if (raceGUI.bets != null)
-                        raceGUI.bets.updateAccount(winner);
+
+                    endRaceUpdates(timer, raceLength, startTime, winner);
+
                 } else if (finished) {
                     raceGUI.updateRace(horses, finished);
                     stats.appendText("Race terminated. All horses have fallen.");
-                    timer.stop();
-                    endTime = System.currentTimeMillis();
-                    stats.updateProgressBars(raceLength, startTime, finished);
-                    updateStats();
-                    raceGUI.displayWinner(winner);
-                    if (raceGUI.bets != null)
-                        raceGUI.bets.updateAccount(winner);
+
+                    endRaceUpdates(timer, raceLength, startTime, winner);
                 }
             }
         });
@@ -231,11 +223,24 @@ public class Race
     }
 
     /**
-     * Updates statistics using start and end times as well
-     * as the race length
+     * Stops the race timer and updates the other windows using
+     * results from the constructor. Stats, bets and the main
+     * GUI window are updated and the winner displayed
+     * 
+     * @param timer timer that coordinates the race on ticks
+     * @param raceLength length of the racetrack
+     * @param startTime time the race began in milliseconds
+     * @param winner the winning horse(s) separated by commas
      */
-    private void updateStats() {
+    private void endRaceUpdates(Timer timer, int raceLength, long startTime, String winner) {
+        timer.stop();
+        endTime = System.currentTimeMillis();
+        stats.updateProgressBars(raceLength, startTime, finished);
         stats.updateStatistics(this, startTime, endTime, raceLength);
+        raceGUI.displayWinner(winner);
+        
+        if (raceGUI.bets != null)
+            raceGUI.bets.updateAccount(winner);
     }
     
     /**

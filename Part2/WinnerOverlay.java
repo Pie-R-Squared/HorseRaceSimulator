@@ -9,6 +9,7 @@ import javax.swing.text.*;
  * @version 1.0 (24th April 2024)
  */
 public class WinnerOverlay extends JDialog {
+
     private JTextPane textPane;
 
     /**
@@ -16,14 +17,14 @@ public class WinnerOverlay extends JDialog {
      * a textpane for the winning horses along with a
      * flag icon
      * 
-     * @param parent the main GUI window
+     * @param raceGUI the main GUI window
      * @param winner the winning horse(s)
      */
-    public WinnerOverlay(JFrame parent, String winner) {
-        super(parent, "Results", ModalityType.MODELESS);
+    public WinnerOverlay(JFrame raceGUI, String winner) {
+        super(raceGUI, "Results", ModalityType.MODELESS);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(100, 120);
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(raceGUI);
         setLayout(new BorderLayout());
 
         JLabel flagLabel = new JLabel(getScaledImage("horses/finish_flag.png", 60, 40));
@@ -55,7 +56,7 @@ public class WinnerOverlay extends JDialog {
         } else {
             winnerText = "The winner is " + winner.replaceAll(",\\s*", "");
         }
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(raceGUI);
 
         try {
             doc.insertString(doc.getLength(), winnerText, boldStyle);
