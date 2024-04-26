@@ -105,11 +105,16 @@ public class Horse
 
     /**
      * Procedure to set the distance travelled by the horse
-     * @param newDistance the new distance travelled by the horse
+     * Checks that the new confidence is within valid range
+     * The confidence is updated only if it's between 0.1 and 0.9
+     * @param newConfidence the new distance travelled by the horse
      */
     public void setConfidence(double newConfidence)
     {
-        this.horseConfidence = newConfidence;
+        if (newConfidence > 0.9 || newConfidence < 0.1)
+            System.out.println("Invalid entry. Confidence must be between 0.1 and 0.9 inclusive.");
+        else
+            this.horseConfidence = newConfidence;
     }
     
     /**

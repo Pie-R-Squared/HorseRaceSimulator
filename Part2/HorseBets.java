@@ -95,7 +95,7 @@ public class HorseBets extends JFrame {
                 } else if (betAmount > account.getBalance()) {
                     JOptionPane.showMessageDialog(HorseBets.this, "Insufficient funds");
                 } else if (betAmount < 50) {
-                    JOptionPane.showMessageDialog(HorseBets.this, "Minimum bet is 50 Ʊ");
+                    JOptionPane.showMessageDialog(HorseBets.this, "Minimum bet is 50 \u01B1");
                 } else {
                     account.subtractAmount(betAmount);
                     JOptionPane.showMessageDialog(HorseBets.this, "Bet placed");
@@ -141,7 +141,7 @@ public class HorseBets extends JFrame {
         }
 
         if (betAmount > 0) {
-            JOptionPane.showMessageDialog(HorseBets.this, betWon ? "Congratulations, you won " + (totalBetWinnings - betAmount) + " Ʊ" : "Bet lost -" + betAmount + " Ʊ\nRemaining balance: " + account.getBalance() + " Ʊ");
+            JOptionPane.showMessageDialog(HorseBets.this, betWon ? "Congratulations, you won " + (totalBetWinnings - betAmount) + " \u01B1" : "Bet lost -" + betAmount + " \u01B1\nRemaining balance: " + account.getBalance() + " \u01B1");
             if (!betWon)
                 JOptionPane.showMessageDialog(HorseBets.this, "Hint: Low betting odds have better chances of winning.\nHigher odds have higher payouts.");
 
@@ -178,7 +178,7 @@ public class HorseBets extends JFrame {
      */
     private void updateTrackConditionsDisplay() {
         conditions = generateRandomConditions();
-        trackConditionsText.setText("Funds: " + account.getBalance() + " Ʊ\n- - - - - -\nTrack Conditions: " + conditions[0] + "\nTemperature: " + conditions[1] + "\nCurrent Odds:");
+        trackConditionsText.setText("Funds: " + account.getBalance() + " \u01B1\n- - - - - -\nTrack Conditions: " + conditions[0] + "\nTemperature: " + conditions[1] + "\nCurrent Odds:");
 
         for (int i = 0; i < horses.size() && i < tracks; i++) {
             trackConditionsText.setText(trackConditionsText.getText() + "\n" + horses.get(i).getName() + " - " + getOdds(horses.get(i)) + ":1");

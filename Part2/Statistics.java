@@ -78,7 +78,7 @@ public class Statistics extends JFrame {
     private void initialise() {
         setTitle("Analyse Race Statistics");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(700, 400);
+        setSize(710, 400);
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(30,30,30));
 
@@ -264,13 +264,13 @@ public class Statistics extends JFrame {
         if (graphPanel.getHeight() > raceTextArea.getHeight()/2 && graphPanel.getHeight() < 120){
             setSize(getWidth(), 500);
         } else if (graphPanel.getHeight() > raceTextArea.getHeight()) {
-            setSize(getWidth(), 780);
+            setSize(getWidth(), 800);
             setLocationRelativeTo(null);
         } else if (graphPanel.getHeight() > raceTextArea.getHeight()/2) {
             setSize(getWidth(), 600);
             setLocationRelativeTo(null);
         } else
-            setSize(700, 400);
+            setSize(710, 400);
     }
 
     /**

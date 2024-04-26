@@ -1,5 +1,6 @@
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
+import java.util.ArrayList;
 
 /**
  * A three-horse race, each horse running in its own lane
