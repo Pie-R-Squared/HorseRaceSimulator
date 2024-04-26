@@ -59,7 +59,7 @@ This application requires no additional dependencies, relying solely on those pr
    ```
 2. Navigate to project directory
    ```sh
-   cd HorseRaceSimulator
+   cd HorseRaceSimulator\Part2
    ```
 3. Compile the GUI class
    ```sh
@@ -82,7 +82,7 @@ Download size: approx. 5MB
 
 3. Open the terminal and locate the file
    ```sh
-   cd Downloads\HorseRaceSimulatorGUI-main\part2
+   cd Downloads\HorseRaceSimulatorGUI-main\Part2
    ```
 4. Compile the GUI class
    ```sh
