@@ -14,7 +14,7 @@ import java.io.*;
  * loaded into a JTextArea for display
  * 
  * @author Aneeka
- * @version 1.0 (24th April 2024)
+ * @version 2.0 (11th April 2025) - Better Mac Compatibility
  */
 public class Statistics extends JFrame {
     private static Map<String, Integer> horseWins = new HashMap<>();
@@ -98,7 +98,7 @@ public class Statistics extends JFrame {
     }
 
     /**
-     * Re-initalises the graph panel with new progress bars
+     * Re-initialises the graph panel with new progress bars
      * to allow them to updated on the Race timer ticks. Also
      * resizes the window to fit the content if needed
      * 
@@ -110,10 +110,10 @@ public class Statistics extends JFrame {
         if (horses != null) {
             for (int i = 0; i < horses.size(); i++) {
                 JProgressBar progressBar = new JProgressBar(0, 100);
+                progressBar.setUI(new ProgressBarUI());
                 progressBar.setStringPainted(true);
-                progressBar.setBackground(new Color(192, 192, 192));
-                progressBar.setForeground(new Color(45,45,48));
-                progressBar.setBorder(BorderFactory.createLineBorder(new Color(45,45,48)));
+                progressBar.setOpaque(false);
+                progressBar.setBorder(BorderFactory.createLineBorder(new Color(45, 45, 48)));
                 graphPanel.add(progressBar);
             }
         }

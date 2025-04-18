@@ -30,6 +30,7 @@ public class DarkThemeButton extends JButton {
         setFocusPainted(false);
         setBorderPainted(false);
         setContentAreaFilled(false);
+        setRolloverEnabled(true);
 
         addMouseListener(new MouseAdapter() {
             @Override
