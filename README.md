@@ -42,7 +42,7 @@ The Horse Race Simulator application is an app that allows users to simulate hor
    - Windows
    - MacOS
 
-The UI is optimised for windows computers so there may be some layout differences due to the core OS. However, the application is designed to be compatible with both.
+The UI is optimised for both Windows and Mac, with the latest update on 11th April 2025.
 
 2. **System Requirements**:
    - Java Development Kit (JDK) build version 16
